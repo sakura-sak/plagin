@@ -113,5 +113,9 @@ function xmldb_plagiarism_antiplagiat_upgrade(int $oldversion): bool {
     if ($oldversion < 2026102507) {
         upgrade_plugin_savepoint(true, 2026102507, 'plagiarism', 'antiplagiat');
     }
+
+    if ($oldversion < 2026102508) {
+        upgrade_plugin_savepoint(true, 2026102508, 'plagiarism', 'antiplagiat');
+    }
     return true;
 }
