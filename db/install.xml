@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="plagiarism/antiplagiat/db" VERSION="20260815" COMMENT="Antiplagiat BGUIR tables">
+  <TABLES>
+    <TABLE NAME="plagiarism_antiplagiat" COMMENT="Document checks submitted to Antiplagiat BGUIR">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="assignmentid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="submissionid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="fileid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="filename" TYPE="char" LENGTH="255" NOTNULL="true"/>
+        <FIELD NAME="contenthash" TYPE="char" LENGTH="64" NOTNULL="true"/>
+        <FIELD NAME="remotetaskid" TYPE="char" LENGTH="64" NOTNULL="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="queued"/>
+        <FIELD NAME="originality" TYPE="number" LENGTH="7" DECIMALS="2" NOTNULL="false"/>
+        <FIELD NAME="borrowing" TYPE="number" LENGTH="7" DECIMALS="2" NOTNULL="false"/>
+        <FIELD NAME="aipercent" TYPE="number" LENGTH="7" DECIMALS="2" NOTNULL="false"/>
+        <FIELD NAME="reporturl" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="reporturlfull" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="attempts" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="lasterror" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timecompleted" TYPE="int" LENGTH="10" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS><KEY NAME="primary" TYPE="primary" FIELDS="id"/></KEYS>
+      <INDEXES>
+        <INDEX NAME="hash-context" UNIQUE="false" FIELDS="contenthash,cmid,userid"/>
+        <INDEX NAME="status" UNIQUE="false" FIELDS="status"/>
+        <INDEX NAME="fileid" UNIQUE="false" FIELDS="fileid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="plagiarism_antiplag_cfg" COMMENT="Per-assignment Antiplagiat BGUIR settings">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1"/>
+        <FIELD NAME="worktype" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="assignment"/>
+        <FIELD NAME="discipline" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS><KEY NAME="primary" TYPE="primary" FIELDS="id"/></KEYS>
+      <INDEXES><INDEX NAME="cmid" UNIQUE="true" FIELDS="cmid"/></INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
